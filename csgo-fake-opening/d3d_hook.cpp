@@ -152,7 +152,7 @@ namespace d3d_vtable {
 				ImGui::GetIO( ).ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange;
 
 				std::string font_path;
-				if ( get_system_font_path( "Courier", font_path ) )
+				if ( get_system_font_path( "Microsoft YaHei", font_path ) )
 					ImGui::GetIO( ).Fonts->AddFontFromFileTTF( font_path.c_str( ), 14, 0, ranges );
 
 				ImGui_ImplWin32_Init( sdk::window );
