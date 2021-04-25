@@ -10,6 +10,7 @@ csgo-fake-opening 允许无限制的打开 武器箱/胶囊，所有的物品都
 - 支持赛事武器箱
 - 修改获得物品的几率
 - 在游戏内使用 <a href="https://github.com/ocornut/imgui">ImGui</a> 配置
+- 修复物品列表中的中文乱码问题
 
 # 使用方法
 - 用以下命令克隆源代码: git clone --recursive https://github.com/H-xiaoH/csgo-fake-opening.git
