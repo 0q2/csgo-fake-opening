@@ -237,25 +237,25 @@ void menu::draw( ) {
 
 	ImGui::Begin( "csgo-fake-opening" );
 	{
-		if ( ImGui::Button( "Crate/key creator", ImVec2( 350, 30 ) ) )
+		if ( ImGui::Button( "创建武器箱和钥匙.", ImVec2( 350, 30 ) ) )
 			current_tab = 0;
 
 		ImGui::SameLine( );
 
-		if ( ImGui::Button( "Fakeopening chances", ImVec2( 350, 30 ) ) )
+		if ( ImGui::Button( "虚假开箱概率.", ImVec2( 350, 30 ) ) )
 			current_tab = 1;
 
 		ImGui::Separator( );
 
 		if ( current_tab == 0 ) {
-			ImGui::Text( "=== Crate creator" );
+			ImGui::Text( "=== 武器箱创建." );
 
-			if ( ImGui::InputText( "Filter##crate", crate_list.filter_buffer.data( ), crate_list.filter_buffer.size( ) ) ) {
+			if ( ImGui::InputText( "筛选.##crate", crate_list.filter_buffer.data( ), crate_list.filter_buffer.size( ) ) ) {
 				crate_list.apply_filter_items( );
 				update_teams( );
 			}
 
-			if ( ImGui::ListBox( "Crates", &crate_list.current_item, vector_getter_item_definition, static_cast<void*>( &crate_list.items_filtered ), crate_list.items_filtered.size( ) ) ) {
+			if ( ImGui::ListBox( "武器箱.", &crate_list.current_item, vector_getter_item_definition, static_cast<void*>( &crate_list.items_filtered ), crate_list.items_filtered.size( ) ) ) {
 				update_teams( );
 			}
 			
@@ -267,9 +267,9 @@ void menu::draw( ) {
 				auto tournament_id = std::find( attributes_crate.begin( ), attributes_crate.end( ), 137);
 				auto is_tournament_crate = tournament_id != attributes_crate.end( ) && !csgo_teams_filtered.empty( );
 
-				ImGui::Checkbox( "Add key to open this crate", &add_key_to_crate );
-				ImGui::SliderInt( "Count", &crate_create_size, 1, 50 );
-				ImGui::Checkbox( "Add crate/key as unacknowledged", &crate_as_unacknowledged );
+				ImGui::Checkbox( "添加打开此武器箱的钥匙.", &add_key_to_crate );
+				ImGui::SliderInt( "数量.", &crate_create_size, 1, 50 );
+				ImGui::Checkbox( "将武器箱和钥匙添加为未确认.", &crate_as_unacknowledged );
 
 				if ( is_tournament_crate ) {
 					ImGui::ListBox( "Stage", &stage_tournament_crate, vector_getter, static_cast<void*>( &item_manager::tournament_event_stages ), item_manager::tournament_event_stages.size( ) ); ImGui::Separator( );
@@ -278,7 +278,7 @@ void menu::draw( ) {
 					ImGui::ListBox( "Mvp player", &player_tournament_crate, vector_getter_pair, static_cast<void*>( &csgo_players_filtered ), csgo_players_filtered.size( ) ); ImGui::Separator( );
 				}
 
-				if ( ImGui::Button( "Create & add to inventory", ImVec2( 200, 40 ) ) ) {
+				if ( ImGui::Button( "创建并添加到物品栏.", ImVec2( 200, 40 ) ) ) {
 					auto inventory = sdk::inventory_manager->get_local_player_inventory( );
 
 					for ( auto i = 0; i < crate_create_size; i++ ) {
@@ -343,18 +343,18 @@ void menu::draw( ) {
 				}
 			}
 
-			ImGui::Text( "=== Key creator" );
+			ImGui::Text( "=== 钥匙创建." );
 
-			if ( ImGui::InputText( "Filter##keys", key_list.filter_buffer.data( ), key_list.filter_buffer.size( ) ) )
+			if ( ImGui::InputText( "筛选.##keys", key_list.filter_buffer.data( ), key_list.filter_buffer.size( ) ) )
 				key_list.apply_filter_items( );
-			ImGui::ListBox( "Keys", &key_list.current_item, vector_getter_item_definition, static_cast<void*>( &key_list.items_filtered ), key_list.items_filtered.size( ) );
+			ImGui::ListBox( "钥匙.", &key_list.current_item, vector_getter_item_definition, static_cast<void*>( &key_list.items_filtered ), key_list.items_filtered.size( ) );
 
 			if ( key_list.current_item < (int)key_list.items_filtered.size( ) ) {
 				auto& key_item = key_list.items_filtered.at( key_list.current_item );
 
-				ImGui::SliderInt( "Count##key", &key_create_size, 1, 50 );
-				ImGui::Checkbox( "Add key as unacknowledged", &key_as_unacknowledged );
-				if ( ImGui::Button( "Create & add to inventory##key", ImVec2( 200, 40 ) ) ) {
+				ImGui::SliderInt( "数量.##key", &key_create_size, 1, 50 );
+				ImGui::Checkbox( "将钥匙添加为未确认.", &key_as_unacknowledged );
+				if ( ImGui::Button( "创建并添加到物品栏.##key", ImVec2( 200, 40 ) ) ) {
 					auto inventory = sdk::inventory_manager->get_local_player_inventory( );
 					for ( auto i = 0; i < key_create_size; i++ ) {
 						auto last_ids = inventory->get_last_values_ids( );
@@ -378,10 +378,10 @@ void menu::draw( ) {
 				}
 			}
 		} else if ( current_tab == 1 ) {
-			ImGui::SliderFloat( "Items chance", &fakeopening_chances::knife_chance, 0.f, 100.f );
-			ImGui::SameLine( ); help_mark( "more = better items, default value = valve chance" );
-			ImGui::SliderFloat( "Stattrak chance", &fakeopening_chances::statstark_chance, 0.f, 100.f );
-			ImGui::SliderFloat( "Factory new wear chance", &fakeopening_chances::factory_new_chance, 0.f, 100.f );
+			ImGui::SliderFloat( "物品概率.", &fakeopening_chances::knife_chance, 0.f, 100.f );
+			ImGui::SameLine( ); help_mark( "高数值 = 更好的物品, 默认值 = 蒸汽概率." );
+			ImGui::SliderFloat( "Stattrak 概率.", &fakeopening_chances::statstark_chance, 0.f, 100.f );
+			ImGui::SliderFloat( "全新磨损概率.", &fakeopening_chances::factory_new_chance, 0.f, 100.f );
 		}
 
 		ImGui::End( );
